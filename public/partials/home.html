@@ -12,6 +12,8 @@
 <div ng-show="json">
 	<h4>{{ json.title }}</h4>
 	<p>{{ json.serves }} - {{ json.time.preparation[1] }} - {{ json.time.cooking[1] }}</p>
+	<p>By {{ json.chef.name[0] }}</p>
+	<p>Ingredients / Tags: <span ng-repeat="tag in json.tags track by $index">{{ tag }}, </span></p>
 	<div class="row">
 		<div class="large-6 columns">
 			<div>

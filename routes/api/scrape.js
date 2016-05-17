@@ -10,6 +10,7 @@ router.get('/', function (req, res) {
 				cuisine: null,
 				ingredients: [],
 				method:[],
+				tags: [],
 				time: {
 					preparation: null,
 					cooking: null
@@ -19,6 +20,9 @@ router.get('/', function (req, res) {
 					average: null,
 					count: null,
 					total: null
+				},
+				chef: {
+					name: []
 				},
 				self_url: url
 			};
@@ -31,10 +35,14 @@ router.get('/', function (req, res) {
 				return res.send({ error: "Not a valid BBC Good Food URL" });
 			} else {
 				$('.recipe-ingredients-wrapper > *:not(.recipe-ingredients__heading)').each(function (index, item){
-					// Trim string up to line break where ingredient anchor description starts
 					recipe.ingredients.push($(this).text());
-
 				});
+
+				$('.recipe-ingredients__list-item > a').each(function (index, item){
+					recipe.tags.push($(this).text());
+				});
+
+				recipe.tags.push($(this).find('a').text());
 				$('.recipe-method__list li').each(function (index, item) {
 					recipe.method.push($(this).text());
 				});
@@ -50,6 +58,13 @@ router.get('/', function (req, res) {
 				}
 				recipe.serves = $('.recipe-metadata__serving').text();
 				recipe.image = $('.recipe-media__image').attr('src');
+
+				recipe.chef = {
+					name: [
+						$('.chef__name .chef__link').text(),
+						$('.chef__name .chef__link').attr('href')
+					]
+				}
 
 				res.send(recipe);
 			}
