@@ -30,22 +30,23 @@ router.get('/', function (req, res) {
 				// res.sendStatus(404, 'Page not found');
 				return res.send({ error: "Not a valid BBC Good Food URL" });
 			} else {
-				$('.recipe-ingredients-wrapper > *').each(function (index, item){
+				$('.recipe-ingredients-wrapper > *:not(.recipe-ingredients__heading)').each(function (index, item){
 					// Trim string up to line break where ingredient anchor description starts
-					var lineBreak = $(this).text().indexOf('\n');
-					if (lineBreak > 0) {
-						recipe.ingredients.push($(this).text().substring(0, lineBreak));
-					} else {
-						recipe.ingredients.push($(this).text());
-					}
+					recipe.ingredients.push($(this).text());
 
 				});
 				$('.recipe-method__list li').each(function (index, item) {
 					recipe.method.push($(this).text());
 				});
 				recipe.time = {
-					preparation: $('.recipe-metadata__prep-time').text(),
-					cooking: $('.recipe-metadata__cook-time').text()
+					preparation: [
+						$('.recipe-metadata__prep-time').attr('content'),
+						$('.recipe-metadata__prep-time').text()
+					],
+					cooking: [
+						$('.recipe-metadata__cook-time').attr('content'),
+						$('.recipe-metadata__cook-time').text()
+					]
 				}
 				recipe.serves = $('.recipe-metadata__serving').text();
 				recipe.image = $('.recipe-media__image').attr('src');
