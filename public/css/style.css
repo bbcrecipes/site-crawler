@@ -1,0 +1,35 @@
+body {
+  border-top: 10px solid #384D76;
+  padding: 40px 0;
+}
+h1, h2, h3, h4, h5, h6 {
+	font-family: 'Roboto', sans-serif;
+	font-weight: lighter;
+}
+#main-container {
+	width: 900px;
+	margin: 0 auto;
+  padding-bottom: 60px;
+}
+
+p.close {
+  position: absolute;
+  top: 0;
+  right: 10px;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+#footer {
+	position:fixed;
+  background-color: #384D76;
+	bottom:0;
+  height:40px;
+	width:100%;
+	text-align: center;
+}
+
+#footer p {
+  line-height: 40px;
+  color: #fff;
+}
